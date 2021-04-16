@@ -110,6 +110,11 @@ project "assimp"
 			systemversion "latest"
 			staticruntime "On"
 
+            		prebuildcommands {
+                		("copy \"$(SolutionDir)EngTest\\externals\\assimp\\include\\assimp\\config.h.in\" \"$(SolutionDir)EngTest\\externals\\assimp\\include\\assimp\\config.h\")
+            		}
+
+
 		filter "configurations:Debug"
 			runtime "Debug"
 			symbols "on"
