@@ -5,28 +5,51 @@ project "assimp"
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
-	includedirs { "../assimp/" }
+	includedirs {
+		
+		"../assimp/", 
+		"include/",
+		"code/",
+		"code/Common/",
+		"contrib/pugixml/src/",
+		"contrib/zlib/",
+		"contrib/zlib/contrib/minizip/"
+	
+	}
 
 	files {
 
 		-- Dependencies
-		"contrib/unzip/**",
-		"contrib/irrXML/**",
-		"contrib/zlib/*",
+		"contrib/unzip/**.cpp",
+		"contrib/unzip/**.h",
+		"contrib/irrXML/**.cpp",
+		"contrib/irrXML/**.h",
+		"contrib/zlib/*.cpp",
+		"contrib/zlib/*.h",
+		"contrib/pugixml/**.hpp",
 		-- Common
-		"code/Common/**",
-		"code/PostProcessing/**",
-		"code/Material/**",
-		"code/CApi/**",
+		"code/Common/**.cpp",
+		"code/Common/**.h",
+		"code/PostProcessing/**.cpp",
+		"code/PostProcessing/**.h",
+		"code/Material/**.cpp",
+		"code/Material/**.h",
+		"code/CApi/**.cpp",
+		"code/CApi/**.h",
 		-- Importers
-		"code/AssetLib/Collada/**",
-		"code/AssetLib/Obj/**",
-		"code/AssetLib/Blender/**",
+		"code/AssetLib/Collada/**.cpp",
+		"code/AssetLib/Collada/**.h",
+		"code/AssetLib/Obj/**.cpp",
+		"code/AssetLib/Obj/**.h",
+		"code/AssetLib/Blender/**.cpp",
+		"code/AssetLib/Blender/**.h",
 		-- "assimp/contrib/poly2tri/poly2tri/**",
-		"code/AssetLib/FBX/**",
+		"code/AssetLib/FBX/**.cpp",
+		"code/AssetLib/FBX/**.h",
 		-- "assimp/code/glTF2/**",
 		-- "assimp/code/glTF/**",
-		"code/AssetLib/Assbin/**" -- For caching
+		"code/AssetLib/Assbin/**.cpp", -- For caching
+		"code/AssetLib/Assbin/**.h"
 
 	}
 
@@ -106,12 +129,27 @@ project "assimp"
 
 	}
 
+	-- Use double precision
+	defines {
+		"ASSIMP_DOUBLE_PRECISION"
+	}
+
+	-- Supresses floating point conversion warnings in VS
+	-- For debugging FPVs, remove or comment this block
+	disablewarnings {
+		"4244"
+	}
+
     filter "system:windows"
 			systemversion "latest"
 			staticruntime "On"
 
+					-- Convert config files from templates to headers
+
             		prebuildcommands {
-                		("copy \"$(SolutionDir)EngTest\\externals\\assimp\\include\\assimp\\config.h.in\" \"$(SolutionDir)EngTest\\externals\\assimp\\include\\assimp\\config.h\")
+                		("copy \"$(SolutionDir)EngTest\\externals\\assimp\\include\\assimp\\config.h.in\" \"$(SolutionDir)EngTest\\externals\\assimp\\include\\assimp\\config.h\" /Y"),
+						("copy \"$(SolutionDir)EngTest\\externals\\assimp\\contrib\\zlib\\zconf.h.in\" \"$(SolutionDir)EngTest\\externals\\assimp\\contrib\\zlib\\zconf.h\" /Y"),
+						("copy \"$(SolutionDir)EngTest\\externals\\assimp\\revision.h.in\" \"$(SolutionDir)EngTest\\externals\\assimp\\revision.h\" /Y")
             		}
 
 
@@ -122,3 +160,4 @@ project "assimp"
 		filter "configurations:Release"
 			runtime "Release"
 			optimize "on"
+
