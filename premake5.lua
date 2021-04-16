@@ -5,31 +5,28 @@ project "assimp"
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
-	includedirs {
-		"../assimp/"
-	
-	}
+	includedirs { "../assimp/" }
 
 	files {
 
 		-- Dependencies
-		"assimp/contrib/unzip/**",
-		"assimp/contrib/irrXML/**",
-		"assimp/contrib/zlib/*",
+		"contrib/unzip/**",
+		"contrib/irrXML/**",
+		"contrib/zlib/*",
 		-- Common
-		"assimp/code/Common/**",
-		"assimp/code/PostProcessing/**",
-		"assimp/code/Material/**",
-		"assimp/code/CApi/**",
+		"code/Common/**",
+		"code/PostProcessing/**",
+		"code/Material/**",
+		"code/CApi/**",
 		-- Importers
-		"assimp/code/AssetLib/Collada/**",
-		"assimp/code/AssetLib/Obj/**",
-		"assimp/code/AssetLib/Blender/**", 
-        -- "assimp/contrib/poly2tri/poly2tri/**",
-		"assimp/code/AssetLib/FBX/**",
+		"code/AssetLib/Collada/**",
+		"code/AssetLib/Obj/**",
+		"code/AssetLib/Blender/**",
+		-- "assimp/contrib/poly2tri/poly2tri/**",
+		"code/AssetLib/FBX/**",
 		-- "assimp/code/glTF2/**",
 		-- "assimp/code/glTF/**",
-		"assimp/code/AssetLib/Assbin/**" -- For caching
+		"code/AssetLib/Assbin/**" -- For caching
 
 	}
 
